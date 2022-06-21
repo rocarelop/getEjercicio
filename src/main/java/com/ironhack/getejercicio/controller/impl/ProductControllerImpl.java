@@ -27,9 +27,16 @@ public class ProductControllerImpl implements ProductController {
         return optionalProduct.get();
     }
 
-    @GetMapping("/products/byCategoryAndDepartment")
-    public List<Product> findByCategoryAndDepartment(@RequestParam Category category, @RequestParam (defaultValue = "CLOTHING")Department department){
-        List<Product> productList = productRepository.findByCategoryAndDepartment(category,department);
+    @GetMapping("/products")
+    public List<Product> findByCategoryAndDepartment(@RequestParam Optional <Category> optionalCategory, @RequestParam (defaultValue = "CLOTHING")Department department){
+        List<Product> productList;
+        if(optionalCategory.isPresent()) {
+            productList = productRepository.findByCategoryAndDepartment(optionalCategory.get(), department);
+
+        }else{
+            productList = productRepository.findByDepartment(department);
+        }
+
         return productList;
 
     }

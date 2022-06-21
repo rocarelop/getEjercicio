@@ -11,8 +11,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    //Product finById(long id);
+    //Product finById(long id);//No es necesario crearlo ya viene por defecto
 
     List<Product> findByCategoryAndDepartment(Category category, Department department);
 
+    List<Product> findByDepartment(Department department);
 }
