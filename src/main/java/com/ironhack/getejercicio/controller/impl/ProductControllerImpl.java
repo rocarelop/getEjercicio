@@ -6,11 +6,10 @@ import com.ironhack.getejercicio.enums.Department;
 import com.ironhack.getejercicio.model.Product;
 import com.ironhack.getejercicio.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +38,14 @@ public class ProductControllerImpl implements ProductController {
 
         return productList;
 
+
+        }
+
+
+    @PostMapping("/products")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product store(@RequestBody @Valid Product product) {
+    return productRepository.save(product);
     }
 
 
